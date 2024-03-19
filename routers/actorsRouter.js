@@ -20,6 +20,18 @@ async function getActor(req, res) {
     }
 }
 
+async function getAllActors(req, res) {
+    try {
+
+        const actors = await Actor.find()
+        res.status(200).json({ actorsList: actors })
+
+    } catch (err) {
+        console.log(e)
+        return res.status(400).json({ error: e })
+    }
+}
+
 async function addActor(req, res) {
     try {
         const { firstname, lastname, birthday, biography, imgPath } = req.body
@@ -54,7 +66,8 @@ async function deleteActor(req, res) {
     }
 }
 
-router.get('/get', getActor)
+router.get('/getall', getAllActors)
+router.post('/get', getActor)
 router.post('/add', addActor)
 router.post('/delete', deleteActor)
 
